@@ -1,0 +1,126 @@
+openapi: 3.1.0
+info:
+  title: Osmosis Improvement agent API
+  description: Improve agentic improvements by learning from past interactions
+  version: 1.0.0
+security:
+- ApiKeyAuth: []
+tags:
+- name: agent
+  description: Operations for enhancing agent interactions and decisions
+paths:
+  /enhance_task:
+    post:
+      tags:
+      - agent
+      summary: Process Agent Input
+      description: "Process agent input, enhance it with relevant past knowledge.\n\nThis endpoint:\n1. Processes the agent's input\n2. Searches for relevant past knowledge\n3. Enhances the response with recommendations\n\nArgs:\n    input_data: Agent's input and context with tenant ID (use your API key as the tenant_id)\n    agent_type: Optional agent type override\n\nReturns:\n    Enhanced response with recommendations\n\nRaises:\n    HTTPException: If processing fails"
+      operationId: process_agent_input_enhance_task_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentInput'
+              description: Agent input data including the query text and context
+            examples:
+              default:
+                summary: Default example
+                description: Use your API key as the tenant_id
+                value:
+                  tenant_id: YOUR_API_KEY
+                  input_text: what is my top trending product selling right now
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnhancedResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EnhancedResponse:
+      properties:
+        response:
+          type: string
+          title: Response
+          description: The processed response
+        metadata:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - response
+      title: EnhancedResponse
+      description: Response enhanced with relevant past knowledge.
+    AgentInput:
+      properties:
+        tenant_id:
+          type: string
+          title: Tenant Id
+          description: Unique identifier that corresponds to a dedicated recommendation collection, enabling sub-tenancy isolation for different agentic workflows
+        input_text:
+          type: string
+          title: Input Text
+          description: The agent's input/query
+        context:
+          additionalProperties:
+            type: string
+          type: object
+          title: Context
+          description: Additional context about the agent's current state
+        agent_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Type
+          description: Type of agent making the request
+      type: object
+      required:
+      - tenant_id
+      - input_text
+      title: AgentInput
+      description: Represents an input from an agent that needs to be processed.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

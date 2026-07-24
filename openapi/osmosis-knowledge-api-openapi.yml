@@ -1,0 +1,254 @@
+openapi: 3.1.0
+info:
+  title: Osmosis Improvement agent knowledge API
+  description: Improve agentic improvements by learning from past interactions
+  version: 1.0.0
+security:
+- ApiKeyAuth: []
+tags:
+- name: knowledge
+  description: Operations for managing the knowledge base
+paths:
+  /store_knowledge:
+    post:
+      tags:
+      - knowledge
+      summary: Store Knowledge
+      description: "Store and process agent interaction knowledge asynchronously.\n\nThis endpoint accepts knowledge about agent interactions and queues it for background\nprocessing. The processing pipeline analyzes the interaction, generates insights,\nand stores them for future use.\n\nArgs:\n    knowledge: Details about the agent interaction including:\n        - tenant_id: Tenant identifier for organization/project\n        - query: The user's original query/request\n        - turns: List of interaction turns between user and agent\n        - success: Whether the interaction achieved the user's goal\n        - agent_type: Type of agent that handled the interaction\n        - timestamp: When the interaction occurred (ISO format)\n    background_tasks: FastAPI background tasks handler for async processing\n\nReturns:\n    Dict containing:\n        - status: \"accepted\"\n        - message: Processing acknowledgement\n        - tenant_id: The tenant ID from the request\n\nNotes:\n    - Each turn should capture the key decision points and context\n    - The memory field helps track the agent's understanding\n    - Success should reflect whether the user's goal was achieved\n    - Timestamp should be in ISO 8601 format\n    - Agent type helps categorize different interaction patterns\n\nRaises:\n    HTTPException(500): If there is an error queueing the knowledge"
+      operationId: store_knowledge_store_knowledge_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentKnowledgeUpload'
+              description: Agent interaction knowledge to store
+            examples:
+              browser_agent_example:
+                summary: Example of a browser agent interaction
+                description: A successful interaction where a browser agent helps find and purchase a product
+                value:
+                  tenant_id: webarena
+                  query: Find and purchase a red Nike running shoe in size 10
+                  turns:
+                  - turn: 1
+                    inputs: On shopping website homepage. Need to search for red Nike running shoes.
+                    decision: '{''action_type'': ''click'', ''element_name'': ''search_bar'', ''text'': [''Nike red running shoes''], ''element_role'': ''searchbox'', ''coords'': [120, 35], ''url'': ''https://shop.example.com''}'
+                    result: click [120, 35] where [120, 35] is searchbox 'Search products...' followed by typing 'Nike red running shoes'
+                    memory: User wants red Nike running shoes. Starting search from homepage.
+                  - turn: 2
+                    inputs: Search results show multiple Nike running shoes. Need to select size 10 in red.
+                    decision: '{''action_type'': ''click'', ''element_name'': ''product_link'', ''text'': [''Nike Air Zoom Pegasus - Red''], ''element_role'': ''link'', ''coords'': [250, 320], ''url'': ''https://shop.example.com/products/nike-air-zoom-pegasus?color=red&size=10''}'
+                    result: click [250, 320] where [250, 320] is link 'Nike Air Zoom Pegasus - Red' in size 10 with 4.8/5 stars (2,453 reviews)
+                    memory: Selected Pegasus model in red, size 10 based on positive reviews and exact match to requirements
+                  success: 'true'
+                  agent_type: browser
+                  timestamp: '2024-03-14T10:30:00Z'
+                  metadata:
+                    browser_type: chrome
+                    site: shopping_admin
+                    interaction_duration_seconds: 120
+                    user_satisfaction_score: 0.95
+        required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Store Knowledge Store Knowledge Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /delete_by_intent:
+    post:
+      tags:
+      - knowledge
+      summary: Delete By Intent
+      description: "Delete documents from the knowledge store based on intent similarity.\n\nThis endpoint:\n1. Takes an intent and tenant_id\n2. Searches for documents with similar intent using the default similarity threshold\n3. Deletes matching documents\n4. Returns the count of deleted documents\n\nArgs:\n    tenant_id: The tenant identifier\n    intent: The intent to match against\n    similarity_threshold: Optional threshold for similarity matching\n\nReturns:\n    Dict containing:\n        - deleted_count: Number of documents deleted\n        - status: Operation status message\n\nRaises:\n    HTTPException: If deletion fails"
+      operationId: delete_by_intent_delete_by_intent_post
+      parameters:
+      - name: tenant_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Tenant Id
+      - name: intent
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Intent
+      - name: similarity_threshold
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: number
+          - type: 'null'
+          description: Optional similarity threshold for matching documents
+          default: 0.5
+          title: Similarity Threshold
+        description: Optional similarity threshold for matching documents
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Delete By Intent Delete By Intent Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /knowledge_status/{job_id}:
+    get:
+      tags:
+      - knowledge
+      summary: Knowledge Status
+      description: "Get the status of a knowledge upload job.\n\nArgs:\n    job_id: The job ID for the knowledge upload, passed as path parameter"
+      operationId: knowledge_status_knowledge_status__job_id__get
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Knowledge Status Knowledge Status  Job Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AgentTurn:
+      properties:
+        turn:
+          type: integer
+          title: Turn
+          description: The turn number in the interaction
+        inputs:
+          type: string
+          title: Inputs
+          description: The flattened input the agent sees
+        decision:
+          type: string
+          title: Decision
+          description: The output/action of the agent
+        memory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Memory
+          description: What the agent remembers from this turn
+        result:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Result
+          description: The result of the action
+      type: object
+      required:
+      - turn
+      - inputs
+      - decision
+      title: AgentTurn
+      description: Represents a single turn in an agent's interaction.
+    AgentKnowledgeUpload:
+      properties:
+        tenant_id:
+          type: string
+          title: Tenant Id
+          description: Unique identifier for the tenant/user
+        query:
+          type: string
+          title: Query
+          description: The original user query or instruction
+        turns:
+          items:
+            $ref: '#/components/schemas/AgentTurn'
+          type: array
+          title: Turns
+          description: The sequence of agent turns
+        success:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Success
+          description: Whether the agent completed its task successfully
+        agent_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Type
+          description: Type of agent (e.g., 'browser', 'voice')
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        metadata:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - tenant_id
+      - query
+      - turns
+      title: AgentKnowledgeUpload
+      description: Represents uploaded knowledge about agent interactions.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

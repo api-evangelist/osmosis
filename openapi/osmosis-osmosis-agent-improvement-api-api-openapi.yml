@@ -1,0 +1,29 @@
+openapi: 3.1.0
+info:
+  title: Osmosis Improvement agent Osmosis Agent Improvement API API
+  description: Improve agentic improvements by learning from past interactions
+  version: 1.0.0
+security:
+- ApiKeyAuth: []
+tags:
+- name: Osmosis Agent Improvement API
+paths:
+  /:
+    get:
+      summary: Health Check
+      description: Simple health check endpoint.
+      operationId: health_check__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Osmosis Agent Improvement API
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
