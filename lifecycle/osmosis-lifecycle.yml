@@ -1,0 +1,23 @@
+generated: '2026-07-20'
+method: searched
+source: https://github.com/Osmosis-AI/osmosis-sdk-python/releases ; https://docs.osmosis.ai
+versioning:
+  scheme: semver
+  current_sdk: 0.2.28
+  api_version: '1.0.0'
+  stability: >-
+    The osmosis-ai SDK is in active development; the README warns "APIs may change
+    between versions." No formal API deprecation policy is published.
+  releases: https://github.com/Osmosis-AI/osmosis-sdk-python/releases
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No documented deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+deprecated_operations: []
+notes: |
+  No public status page was found (status.osmosis.ai / trust.osmosis.ai render no
+  status feed). A dated changelog is captured in changelog/osmosis-changelog.yml.

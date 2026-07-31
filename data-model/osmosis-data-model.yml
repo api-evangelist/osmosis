@@ -1,0 +1,39 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/osmosis-agent-improvement-openapi.json
+entities:
+- name: AgentInput
+  role: request
+  operation: enhance_task
+  fields: [tenant_id, input_text, context, agent_type]
+  required: [tenant_id, input_text]
+- name: EnhancedResponse
+  role: response
+  operation: enhance_task
+  fields: [response, metadata]
+  required: [response]
+- name: AgentKnowledgeUpload
+  role: request
+  operation: store_knowledge
+  fields: [tenant_id, query, turns, success, agent_type, timestamp, metadata]
+  required: [tenant_id, query, turns]
+- name: AgentTurn
+  role: nested
+  fields: [turn, inputs, decision, memory, result]
+  required: [turn, inputs, decision]
+relationships:
+- from: AgentKnowledgeUpload
+  to: AgentTurn
+  kind: has_many
+  via: turns
+grouping_keys:
+- field: tenant_id
+  notes: Partitions all agent knowledge/enhancement by tenant.
+- field: agent_type
+  notes: Optional grouping of interactions by agent type.
+- field: query
+  notes: store_knowledge groups turns under an intent/query; delete_by_intent removes by it.
+notes: |
+  The Agent Improvement API models agent interaction memory: an agent's turns
+  (inputs/decision/memory/result) are uploaded under a query/intent for a tenant,
+  then enhance_task returns an improved response drawing on stored knowledge.

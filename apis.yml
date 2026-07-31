@@ -1,9 +1,29 @@
 aid: osmosis
 name: Osmosis
-description: 'Osmosis is a company surfaced as a portfolio company of crv, felicis, paradigm and added
-  to the API Evangelist network as a stub for enrichment. Sector: ai. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Osmosis (Gulp AI Inc.) is a forward-deployed reinforcement-learning platform for
+  post-training large language models. Teams implement an AgentWorkflow and a Grader
+  in Python, then use the Osmosis CLI and web platform to submit evaluation and
+  training runs (GRPO/DAPO, multi-turn tool training) that produce task-specific
+  LoRA models which beat foundation models at a fraction of the cost. Osmosis also
+  ships an Agent Improvement REST API for storing agent interaction knowledge and
+  enhancing agent tasks from past interactions, an open-source Python SDK/CLI
+  (osmosis-ai), a TypeScript logging SDK, an open-source MCP server (Osmosis-Apply),
+  webhooks, and hosted documentation. Backed by CRV, Felicis, and Paradigm.
 url: https://raw.githubusercontent.com/api-evangelist/osmosis/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://raw.githubusercontent.com/Osmosis-AI/osmosis-sdk-python/main/.github/osmosis-logo-light.svg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -12,13 +32,58 @@ x-backed-by:
 - paradigm
 x-tier: stub
 x-tier-reason: portfolio-lead
+x-legal-entity: Gulp AI Inc.
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1
 tags:
 - Company
-- Ai
-apis: []
+- AI
+- Reinforcement Learning
+- LLM
+- Post-Training
+- Model Training
+- Agents
+- Machine Learning
+- Developer Tools
+apis:
+- aid: osmosis:osmosis-agent-api
+  name: Osmosis agent API
+  description: Operations for enhancing agent interactions and decisions
+  humanURL: https://docs.osmosis.ai
+  baseURL: https://api.osmosis.ai
+  tags:
+  - agent
+  properties:
+  - type: OpenAPI
+    url: openapi/osmosis-agent-api-openapi.yml
+- aid: osmosis:osmosis-knowledge-api
+  name: Osmosis knowledge API
+  description: Operations for managing the knowledge base
+  humanURL: https://docs.osmosis.ai
+  baseURL: https://api.osmosis.ai
+  tags:
+  - knowledge
+  properties:
+  - type: OpenAPI
+    url: openapi/osmosis-knowledge-api-openapi.yml
+- aid: osmosis:osmosis-osmosis-agent-improvement-api-api
+  name: Osmosis Osmosis Agent Improvement API API
+  description: >-
+    The Osmosis Agent Improvement API API from Osmosis — 1 operation(s) for osmosis agent improvement
+    api.
+  humanURL: https://docs.osmosis.ai
+  baseURL: https://api.osmosis.ai
+  tags:
+  - Osmosis Agent Improvement API
+  properties:
+  - type: OpenAPI
+    url: openapi/osmosis-osmosis-agent-improvement-api-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -27,3 +92,59 @@ maintainers:
 common:
 - type: Website
   url: https://osmosis.ai/
+- type: DeveloperPortal
+  url: https://docs.osmosis.ai
+- type: Documentation
+  url: https://docs.osmosis.ai
+- type: APIReference
+  url: https://docs.osmosis.ai/openapi.json
+- type: GettingStarted
+  url: https://docs.osmosis.ai/platform/quickstart
+- type: Blog
+  url: https://osmosis.ai/blog
+- type: Support
+  url: https://osmosis.ai/contact
+- type: GitHubOrganization
+  url: https://github.com/Osmosis-AI
+- type: SignUp
+  url: https://platform.osmosis.ai
+- type: TermsOfService
+  url: https://osmosis.ai/legal/terms
+- type: PrivacyPolicy
+  url: https://osmosis.ai/legal/privacy
+- type: TrustCenter
+  url: https://trust.osmosis.ai
+- type: Packages
+  url: packages/osmosis-packages.yml
+- type: SDKs
+  url: packages/osmosis-packages.yml
+- type: CLI
+  url: cli/osmosis-cli.yml
+- type: MCPServer
+  url: mcp/osmosis-mcp.yml
+- type: LLMsTxt
+  url: llms/osmosis-llms.txt
+- type: WellKnown
+  url: well-known/osmosis-well-known.yml
+- type: Conformance
+  url: conformance/osmosis-conformance.yml
+- type: ErrorCatalog
+  url: errors/osmosis-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/osmosis-lifecycle.yml
+- type: ChangeLog
+  url: changelog/osmosis-changelog.yml
+- type: Conventions
+  url: conventions/osmosis-conventions.yml
+- type: DataModel
+  url: data-model/osmosis-data-model.yml
+- type: Webhooks
+  url: asyncapi/osmosis-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/osmosis-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/osmosis-agentic-access.yml
+- type: Authentication
+  url: authentication/osmosis-authentication.yml

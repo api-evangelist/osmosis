@@ -1,0 +1,34 @@
+# Osmosis
+
+## Docs
+
+- [Command Reference](https://docs.osmosis.ai/cli/command-reference.md): Review all Osmosis CLI commands
+- [Configuration Files](https://docs.osmosis.ai/cli/config-files.md): Reference TOML configuration files used by the Osmosis CLI
+- [Installation & Authentication](https://docs.osmosis.ai/cli/installation.md): Install the Osmosis CLI and authenticate with the platform
+- [Building AgentWorkflows](https://docs.osmosis.ai/cli/rollout/agent-workflows.md): Implement the AgentWorkflow class to define your agent behavior for training
+- [Evaluation](https://docs.osmosis.ai/cli/rollout/eval.md): Submit evaluation runs and inspect results from your workspace directory
+- [Execution Backends](https://docs.osmosis.ai/cli/rollout/execution-backends.md): Choose between in-process and Harbor-managed rollout execution in the open source osmosis-ai SDK
+- [Building Graders](https://docs.osmosis.ai/cli/rollout/graders.md): Implement the Grader class to define reward signals for training
+- [OpenAI Agents Integration](https://docs.osmosis.ai/cli/rollout/openai-agents-integration.md): Use the OpenAI Agents SDK with Osmosis for training
+- [Overview](https://docs.osmosis.ai/cli/rollout/overview.md): Build custom agent workflows and graders for training on Osmosis
+- [Strands Integration](https://docs.osmosis.ai/cli/rollout/strands-integration.md): Use the Strands agent framework with Osmosis for training
+- [Git Sync](https://docs.osmosis.ai/cli/workspace/git-sync.md): Sync rollout code and configs from your workspace repository to Osmosis
+- [Overview](https://docs.osmosis.ai/cli/workspace/overview.md): Understand workspace repositories and local workspace directories
+- [Workspace Repository](https://docs.osmosis.ai/cli/workspace/repository.md): Understand how a GitHub repository connects your local CLI commands to an Osmosis workspace
+- [Structure & Configuration](https://docs.osmosis.ai/cli/workspace/structure-and-config.md): Understand the workspace repository layout and configuration files
+- [Introduction](https://docs.osmosis.ai/introduction.md): Osmosis is a post-training platform for LLMs. The Osmosis CLI abstracts away the infrastructure challenges of distributed training & RL pipeline design.
+- [Create Your Own Rollout](https://docs.osmosis.ai/platform/create-your-own-rollout.md): Use your AI coding agent to create a task-specific rollout
+- [Datasets](https://docs.osmosis.ai/platform/datasets.md): Upload JSONL, CSV, or Parquet datasets and validate required columns for training and evaluation runs
+- [Evaluation Runs](https://docs.osmosis.ai/platform/evaluation-runs.md): Submit, monitor, and manage evaluation runs on the Osmosis platform
+- [Models](https://docs.osmosis.ai/platform/models.md): Manage base models and deploy trained LoRA models for inference
+- [Monitoring](https://docs.osmosis.ai/platform/monitoring.md): Monitor training run status and metrics on the platform
+- [Onboarding](https://docs.osmosis.ai/platform/onboarding.md): Set up your workspace repository and choose your first training workflow
+- [Overview](https://docs.osmosis.ai/platform/overview.md): Understand the Osmosis web dashboard for managing training runs, datasets, models, and more
+- [Run the Multiply Example](https://docs.osmosis.ai/platform/quickstart.md): Run your first RL training loop with a starter Multiply example
+- [Settings](https://docs.osmosis.ai/platform/settings.md): Manage workspace settings, members, secrets, integrations, and billing
+- [Training Runs](https://docs.osmosis.ai/platform/training-runs.md): Submit, monitor, and manage training runs on the Osmosis platform
+- [Webhooks](https://docs.osmosis.ai/platform/webhooks.md): Receive an HTTP POST when a training or evaluation run finishes
+
+## OpenAPI Specs
+
+- [openapi](https://docs.osmosis.ai/api-reference/openapi.json)

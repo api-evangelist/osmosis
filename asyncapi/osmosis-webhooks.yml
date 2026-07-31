@@ -1,0 +1,38 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.osmosis.ai/platform/webhooks
+spec_type: Webhooks
+transport: https
+delivery: HTTP POST with Content-Type application/json, once per completed run
+configuration: >-
+  Configured in Workspace Settings -> Webhooks (owners/admins). URL must be HTTPS on
+  port 443, publicly resolvable; private/internal addresses are rejected.
+envelope:
+  fields: [event, timestamp, data]
+  example:
+    event: training_run.completed
+    timestamp: '2026-07-15T22:14:05.123456+00:00'
+    data: {}
+events:
+- name: training_run.completed
+  sent_when: A training run finishes
+- name: eval_run.completed
+  sent_when: An evaluation run finishes
+- name: webhook.test
+  sent_when: You click "Send test payload"
+data_shape:
+  fields:
+  - {name: id, description: The run ID}
+  - {name: name, description: The run name}
+  - {name: status, description: 'Final status: finished, failed, or stopped'}
+  - {name: started_at, description: When the run started (ISO 8601)}
+  - {name: completed_at, description: When the run finished (ISO 8601)}
+  - {name: duration_seconds, description: Total run duration in seconds}
+  - {name: model_name, description: Name of the model used by the run}
+  - {name: dataset, description: '{id, name} of the dataset, or null'}
+  - {name: rollout, description: '{id, name} of the rollout, or null'}
+  - {name: platform_url, description: Link to the run detail page}
+  - {name: latest_metrics, description: Latest run metrics / final aggregate results incl. reward_stats}
+notes: |
+  Osmosis documents webhooks but publishes no AsyncAPI document. Captured as a webhook
+  catalog (type: Webhooks); no AsyncAPI spec fabricated.

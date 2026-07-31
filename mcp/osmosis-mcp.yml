@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+status: published
+source: https://github.com/Osmosis-AI/Osmosis-Apply-1.7B-MCP
+server:
+  name: codemerge
+  display_name: CodeMerge (Osmosis-Apply-1.7B)
+  transport: stdio
+  repository: https://github.com/Osmosis-AI/Osmosis-Apply-1.7B-MCP
+  description: >-
+    An open-source Model Context Protocol server that uses the Osmosis-Apply-1.7B
+    model (served locally via Ollama) to merge code edits into files. Integrates
+    into AI IDE / MCP-client workflows. Requires Python 3.10+, Ollama, and the
+    Osmosis/Osmosis-Apply-1.7B model pulled locally.
+  hosting: self-hosted
+tools:
+- name: apply_code_merge
+  description: Apply/merge a set of code edits into target code using the Osmosis-Apply-1.7B
+    model, editing files in place or returning the edited code.
+related:
+- name: Osmosis-MCP-4B-demo
+  repository: https://github.com/Osmosis-AI/Osmosis-MCP-4B-demo
+  description: Open-source small language model trained for MCP (demo).
+notes: |
+  This MCP server is for Osmosis's open-source Apply model, not a hosted MCP over
+  the Agent Improvement REST API. The osmosis-agent-improvement OpenAPI operations
+  (enhance_task, store_knowledge, delete_by_intent, knowledge_status) are candidate
+  tool sources for a future REST-backed MCP server; none is published yet.

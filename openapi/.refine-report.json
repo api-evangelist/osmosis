@@ -1,0 +1,18 @@
+{
+  "provider": "osmosis",
+  "sources": [
+    "osmosis-agent-api-openapi.yml",
+    "osmosis-knowledge-api-openapi.yml",
+    "osmosis-osmosis-agent-improvement-api-api-openapi.yml"
+  ],
+  "outputs": [
+    "osmosis-agent-api-openapi.yml",
+    "osmosis-knowledge-api-openapi.yml",
+    "osmosis-osmosis-agent-improvement-api-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

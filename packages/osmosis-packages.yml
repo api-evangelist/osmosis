@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+source: https://pypi.org/project/osmosis-ai/ ; https://www.npmjs.com/package/osmosis-ai
+packages:
+- language: python
+  registry: pypi
+  name: osmosis-ai
+  version: 0.2.28
+  url: https://pypi.org/project/osmosis-ai/
+  install: pip install osmosis-ai
+  repository: https://github.com/Osmosis-AI/osmosis-sdk-python
+  description: Python SDK and CLI for building agent rollouts and managing LLM post-training
+    workflows on Osmosis. Registers the osmosis / osmosis-ai / osmosis_ai CLI aliases.
+  requires: '>=3.12'
+  official: true
+- language: javascript
+  registry: npm
+  name: osmosis-ai
+  version: 0.1.7
+  url: https://www.npmjs.com/package/osmosis-ai
+  install: npm install osmosis-ai
+  repository: https://github.com/Gulp-AI/osmosis-sdk-typescript
+  description: TypeScript library that monkey-patches the OpenAI library to log all
+    requests to Osmosis (Gulp AI).
+  official: true
+notes: |
+  Registry probes (2026-07-20): PyPI osmosis-ai=0.2.28 (200), npm osmosis-ai=0.1.7 (200).
+  Not found as first-party: Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist, crates.io.

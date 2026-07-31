@@ -1,0 +1,36 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/osmosis-agent-improvement-openapi.json ; docs.osmosis.ai
+scope: Osmosis Agent Improvement API (agentic memory / self-improvement)
+authentication:
+  style: api-key
+  header: x-api-key
+  scheme: ApiKeyAuth
+  applied: global
+tenancy:
+  field: tenant_id
+  notes: Every request body (enhance_task, store_knowledge) requires a tenant_id for isolation.
+idempotency:
+  supported: false
+  notes: No idempotency-key header or parameter is documented in the spec or docs.
+pagination:
+  supported: false
+  notes: No list endpoints returning collections; no pagination surface.
+async:
+  supported: true
+  pattern: >-
+    store_knowledge returns 202 Accepted with a job_id; poll GET /knowledge_status/{job_id}
+    for processing status.
+error_envelope:
+  format: fastapi-validation
+  shape: 'HTTP 422 with { detail: [ { loc, msg, type } ] }'
+  problem_json: false
+versioning:
+  api_version: '1.0.0'
+  scheme: semver (SDK)
+rate_limits:
+  documented: false
+cross_links:
+  errors: errors/osmosis-problem-types.yml
+  authentication: authentication/osmosis-authentication.yml
+  lifecycle: lifecycle/osmosis-lifecycle.yml

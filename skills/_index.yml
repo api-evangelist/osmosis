@@ -1,0 +1,15 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/osmosis-agent-improvement-openapi.json
+skills:
+- file: osmosis-enhance-agent-task.md
+  name: Enhance an agent task with Osmosis memory
+  api: openapi/osmosis-agent-improvement-openapi.json
+  operations: [process_agent_input_enhance_task_post]
+- file: osmosis-store-and-manage-knowledge.md
+  name: Store and manage agent interaction knowledge
+  api: openapi/osmosis-agent-improvement-openapi.json
+  operations:
+  - store_knowledge_store_knowledge_post
+  - knowledge_status_knowledge_status__job_id__get
+  - delete_by_intent_delete_by_intent_post

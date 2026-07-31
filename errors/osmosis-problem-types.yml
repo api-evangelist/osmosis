@@ -1,0 +1,24 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/osmosis-agent-improvement-openapi.json
+format: fastapi-validation
+envelope:
+  description: >-
+    Validation errors return a FastAPI-style envelope (HTTP 422) with a top-level
+    detail[] array of {loc, msg, type} entries. This is NOT RFC 9457
+    application/problem+json.
+  content_type: application/json
+problems:
+- status: 422
+  title: Validation Error
+  schema: HTTPValidationError
+  source_operations:
+  - openapi/osmosis-agent-improvement-openapi.json#process_agent_input_enhance_task_post
+  - openapi/osmosis-agent-improvement-openapi.json#store_knowledge_store_knowledge_post
+  - openapi/osmosis-agent-improvement-openapi.json#delete_by_intent_delete_by_intent_post
+  - openapi/osmosis-agent-improvement-openapi.json#knowledge_status_knowledge_status__job_id__get
+notes: |
+  The published spec declares only 200/202 success and 422 validation responses.
+  Auth failures (401/403 for a missing/invalid x-api-key) and 404 (unknown job_id)
+  are implied by the apiKey security scheme and path parameter but are not enumerated
+  in the spec responses; not fabricated here.

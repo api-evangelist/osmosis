@@ -1,0 +1,26 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Osmosis Agent Improvement API
+  version: 1.0.0
+extends: openapi/osmosis-agent-improvement-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: osmosis
+    x-apievangelist-product: Agent Improvement API
+    x-apievangelist-notes: >-
+      Agentic memory / self-improvement API. Auth is an x-api-key header; per-request
+      tenant isolation via the tenant_id field. Errors follow FastAPI validation
+      envelope (422 with detail[]), not RFC 9457.
+- target: $.servers
+  update:
+  - url: https://api.osmosis.ai
+    description: Production (base URL not declared in the published spec; inferred host)
+- target: $.paths['/enhance_task'].post
+  update:
+    x-apievangelist-idempotent: false
+    x-apievangelist-consequence: write
+- target: $.paths['/store_knowledge'].post
+  update:
+    x-apievangelist-async: true
+    x-apievangelist-notes: Returns 202 Accepted with a job_id polled via /knowledge_status.

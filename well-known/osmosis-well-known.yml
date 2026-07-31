@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+source: live probes of /.well-known/ on osmosis.ai, docs.osmosis.ai, api.osmosis.ai
+hosts:
+- host: https://osmosis.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+- host: https://docs.osmosis.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+- host: https://api.osmosis.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 530}
+  - {path: /.well-known/openid-configuration, status: 530}
+  - {path: /.well-known/oauth-authorization-server, status: 530}
+  - {path: /.well-known/ai-plugin.json, status: 530}
+  - {path: /.well-known/api-catalog, status: 530}
+notes: |
+  No .well-known discovery documents are published. api.osmosis.ai returns Cloudflare
+  530/1016 (origin unreachable) rather than a resolvable document surface.

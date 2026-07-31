@@ -1,0 +1,29 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/osmosis-agent-improvement-openapi.json ; docs.osmosis.ai
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: Published OpenAPI 3.1.0 document at docs.osmosis.ai/openapi.json
+- id: api-key-auth
+  conforms: true
+  evidence: securityScheme ApiKeyAuth (apiKey in header x-api-key), applied globally
+- id: oauth2
+  conforms: false
+  evidence: >-
+    The REST Agent Improvement API uses api-key auth only. The platform CLI uses a
+    browser OAuth login flow, but no OAuth2 securityScheme is declared in the spec.
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use FastAPI validation envelope (422 detail[]), not application/problem+json
+- id: webhooks
+  conforms: true
+  evidence: Platform sends signed JSON HTTP POST webhooks on run completion (docs.osmosis.ai/platform/webhooks)
+- id: json-api
+  conforms: false
+- id: fhir-r4
+  conforms: false
+- id: scim
+  conforms: false

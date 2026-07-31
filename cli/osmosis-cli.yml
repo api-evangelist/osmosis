@@ -1,0 +1,31 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.osmosis.ai/cli/installation ; https://docs.osmosis.ai/cli/command-reference
+name: osmosis
+aliases:
+- osmosis
+- osmosis-ai
+- osmosis_ai
+requires:
+  python: '>=3.12'
+install:
+- pip install osmosis-ai
+- pip install osmosis-ai[server]  # + FastAPI rollout server
+- uv add osmosis-ai
+package: osmosis-ai
+auth:
+  login: osmosis auth login   # browser-based OAuth flow, credentials cached locally
+  ci_token_env: OSMOSIS_TOKEN
+  token_flag: --token <TOKEN>
+command_groups:
+- group: auth
+  purpose: Authenticate the CLI session (login, status, force re-login)
+- group: rollout
+  purpose: Build/submit agent rollouts (AgentWorkflow + Grader), evaluation and training runs
+- group: workspace
+  purpose: Manage workspace repository, Git Sync, structure and config
+agent_contract: >-
+  The CLI documents a --json / --plain output contract for AI agents and CI/CD.
+notes: |
+  Command surface summarized from the CLI docs; grouped from the llms.txt page index.
+  The binary itself is catalogued in packages/osmosis-packages.yml (PyPI osmosis-ai).
