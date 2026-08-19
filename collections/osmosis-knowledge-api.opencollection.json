@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Osmosis Improvement agent knowledge API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "knowledge",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Store Knowledge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/store_knowledge",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Store and process agent interaction knowledge asynchronously.\n\nThis endpoint accepts knowledge about agent interactions and queues it for background\nprocessing. The processing pipeline analyzes the interaction, generates insights,\nand stores them for future use.\n\nArgs:\n    knowledge: Details about the agent interaction including:\n        - tenant_id: Tenant identifier for organization/project\n        - query: The user's original query/request\n        - turns: List of interaction turns between us"
+        },
+        {
+          "info": {
+            "name": "Delete By Intent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/delete_by_intent",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "intent",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "similarity_threshold",
+                "value": "",
+                "type": "query",
+                "description": "Optional similarity threshold for matching documents"
+              }
+            ]
+          },
+          "docs": "Delete documents from the knowledge store based on intent similarity.\n\nThis endpoint:\n1. Takes an intent and tenant_id\n2. Searches for documents with similar intent using the default similarity threshold\n3. Deletes matching documents\n4. Returns the count of deleted documents\n\nArgs:\n    tenant_id: The tenant identifier\n    intent: The intent to match against\n    similarity_threshold: Optional threshold for similarity matching\n\nReturns:\n    Dict containing:\n        - deleted_count: Number of docum"
+        },
+        {
+          "info": {
+            "name": "Knowledge Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/knowledge_status/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the status of a knowledge upload job.\n\nArgs:\n    job_id: The job ID for the knowledge upload, passed as path parameter"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

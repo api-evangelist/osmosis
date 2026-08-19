@@ -1,0 +1,513 @@
+{
+  "item": [
+    {
+      "id": "4c79ce43-5f82-4a11-a20e-e0251cb0b572",
+      "name": "knowledge",
+      "description": {
+        "content": "Operations for managing the knowledge base",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "759f4d4e-b37b-4ebc-944e-66720df972fa",
+          "name": "Store Knowledge",
+          "request": {
+            "name": "Store Knowledge",
+            "description": {
+              "content": "Store and process agent interaction knowledge asynchronously.\n\nThis endpoint accepts knowledge about agent interactions and queues it for background\nprocessing. The processing pipeline analyzes the interaction, generates insights,\nand stores them for future use.\n\nArgs:\n    knowledge: Details about the agent interaction including:\n        - tenant_id: Tenant identifier for organization/project\n        - query: The user's original query/request\n        - turns: List of interaction turns between user and agent\n        - success: Whether the interaction achieved the user's goal\n        - agent_type: Type of agent that handled the interaction\n        - timestamp: When the interaction occurred (ISO format)\n    background_tasks: FastAPI background tasks handler for async processing\n\nReturns:\n    Dict containing:\n        - status: \"accepted\"\n        - message: Processing acknowledgement\n        - tenant_id: The tenant ID from the request\n\nNotes:\n    - Each turn should capture the key decision points and context\n    - The memory field helps track the agent's understanding\n    - Success should reflect whether the user's goal was achieved\n    - Timestamp should be in ISO 8601 format\n    - Agent type helps categorize different interaction patterns\n\nRaises:\n    HTTPException(500): If there is an error queueing the knowledge",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "store_knowledge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenant_id\": \"<string>\",\n  \"query\": \"<string>\",\n  \"turns\": [\n    {\n      \"turn\": \"<integer>\",\n      \"inputs\": \"<string>\",\n      \"decision\": \"<string>\",\n      \"memory\": \"<string>\",\n      \"result\": \"<string>\"\n    },\n    {\n      \"turn\": \"<integer>\",\n      \"inputs\": \"<string>\",\n      \"decision\": \"<string>\",\n      \"memory\": \"<string>\",\n      \"result\": \"<string>\"\n    }\n  ],\n  \"success\": \"<boolean>\",\n  \"agent_type\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7e93b56d-e5d1-4703-9af0-09e71c210388",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "store_knowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tenant_id\": \"webarena\",\n  \"query\": \"Find and purchase a red Nike running shoe in size 10\",\n  \"turns\": [\n    {\n      \"turn\": 1,\n      \"inputs\": \"On shopping website homepage. Need to search for red Nike running shoes.\",\n      \"decision\": \"{'action_type': 'click', 'element_name': 'search_bar', 'text': ['Nike red running shoes'], 'element_role': 'searchbox', 'coords': [120, 35], 'url': 'https://shop.example.com'}\",\n      \"result\": \"click [120, 35] where [120, 35] is searchbox 'Search products...' followed by typing 'Nike red running shoes'\",\n      \"memory\": \"User wants red Nike running shoes. Starting search from homepage.\"\n    },\n    {\n      \"turn\": 2,\n      \"inputs\": \"Search results show multiple Nike running shoes. Need to select size 10 in red.\",\n      \"decision\": \"{'action_type': 'click', 'element_name': 'product_link', 'text': ['Nike Air Zoom Pegasus - Red'], 'element_role': 'link', 'coords': [250, 320], 'url': 'https://shop.example.com/products/nike-air-zoom-pegasus?color=red&size=10'}\",\n      \"result\": \"click [250, 320] where [250, 320] is link 'Nike Air Zoom Pegasus - Red' in size 10 with 4.8/5 stars (2,453 reviews)\",\n      \"memory\": \"Selected Pegasus model in red, size 10 based on positive reviews and exact match to requirements\"\n    }\n  ],\n  \"success\": \"true\",\n  \"agent_type\": \"browser\",\n  \"timestamp\": \"2024-03-14T10:30:00Z\",\n  \"metadata\": {\n    \"browser_type\": \"chrome\",\n    \"site\": \"shopping_admin\",\n    \"interaction_duration_seconds\": 120,\n    \"user_satisfaction_score\": 0.95\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fa10857-9b0a-4293-9efe-b22d6ad87ee4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "store_knowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tenant_id\": \"webarena\",\n  \"query\": \"Find and purchase a red Nike running shoe in size 10\",\n  \"turns\": [\n    {\n      \"turn\": 1,\n      \"inputs\": \"On shopping website homepage. Need to search for red Nike running shoes.\",\n      \"decision\": \"{'action_type': 'click', 'element_name': 'search_bar', 'text': ['Nike red running shoes'], 'element_role': 'searchbox', 'coords': [120, 35], 'url': 'https://shop.example.com'}\",\n      \"result\": \"click [120, 35] where [120, 35] is searchbox 'Search products...' followed by typing 'Nike red running shoes'\",\n      \"memory\": \"User wants red Nike running shoes. Starting search from homepage.\"\n    },\n    {\n      \"turn\": 2,\n      \"inputs\": \"Search results show multiple Nike running shoes. Need to select size 10 in red.\",\n      \"decision\": \"{'action_type': 'click', 'element_name': 'product_link', 'text': ['Nike Air Zoom Pegasus - Red'], 'element_role': 'link', 'coords': [250, 320], 'url': 'https://shop.example.com/products/nike-air-zoom-pegasus?color=red&size=10'}\",\n      \"result\": \"click [250, 320] where [250, 320] is link 'Nike Air Zoom Pegasus - Red' in size 10 with 4.8/5 stars (2,453 reviews)\",\n      \"memory\": \"Selected Pegasus model in red, size 10 based on positive reviews and exact match to requirements\"\n    }\n  ],\n  \"success\": \"true\",\n  \"agent_type\": \"browser\",\n  \"timestamp\": \"2024-03-14T10:30:00Z\",\n  \"metadata\": {\n    \"browser_type\": \"chrome\",\n    \"site\": \"shopping_admin\",\n    \"interaction_duration_seconds\": 120,\n    \"user_satisfaction_score\": 0.95\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74a8418e-20a8-4540-a88b-652811bf45cd",
+          "name": "Delete By Intent",
+          "request": {
+            "name": "Delete By Intent",
+            "description": {
+              "content": "Delete documents from the knowledge store based on intent similarity.\n\nThis endpoint:\n1. Takes an intent and tenant_id\n2. Searches for documents with similar intent using the default similarity threshold\n3. Deletes matching documents\n4. Returns the count of deleted documents\n\nArgs:\n    tenant_id: The tenant identifier\n    intent: The intent to match against\n    similarity_threshold: Optional threshold for similarity matching\n\nReturns:\n    Dict containing:\n        - deleted_count: Number of documents deleted\n        - status: Operation status message\n\nRaises:\n    HTTPException: If deletion fails",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delete_by_intent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tenant_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "intent",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "similarity_threshold",
+                  "value": "<number>",
+                  "description": "Optional similarity threshold for matching documents"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3eb969b1-3538-4b2b-90e2-88643ad55661",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delete_by_intent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tenant_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "intent",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "similarity_threshold",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5f4ba2b-2fc3-45fd-9c5c-5e0c052f7d21",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delete_by_intent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tenant_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "intent",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "similarity_threshold",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5123ea7-4335-421a-b99a-41c9a46d554d",
+          "name": "Knowledge Status",
+          "request": {
+            "name": "Knowledge Status",
+            "description": {
+              "content": "Get the status of a knowledge upload job.\n\nArgs:\n    job_id: The job ID for the knowledge upload, passed as path parameter",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "knowledge_status",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d57c5ad3-b102-4fd9-96f2-a9ca1b9fd6a0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "knowledge_status",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1eda0335-d43f-4de5-a674-374df2a1c81c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "knowledge_status",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8fea352a-6036-4664-80c7-d75836ab09cf",
+    "name": "Osmosis Improvement agent knowledge API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Improve agentic improvements by learning from past interactions",
+      "type": "text/plain"
+    }
+  }
+}
