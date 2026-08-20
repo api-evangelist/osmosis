@@ -43,6 +43,16 @@ x-enrichment:
   pass: local-v1
 tags:
 - Company
+- Artificial Intelligence
+- Reinforcement Learning
+- LLM
+- Post-Training
+- Model Training
+- Agents
+- Machine-Learning
+- Developer Tools
+tags_raw:
+- Company
 - AI
 - Reinforcement Learning
 - LLM
@@ -58,6 +68,8 @@ apis:
   humanURL: https://docs.osmosis.ai
   baseURL: https://api.osmosis.ai
   tags:
+  - Agents
+  tags_raw:
   - agent
   properties:
   - type: OpenAPI
@@ -68,6 +80,8 @@ apis:
   humanURL: https://docs.osmosis.ai
   baseURL: https://api.osmosis.ai
   tags:
+  - Knowledge
+  tags_raw:
   - knowledge
   properties:
   - type: OpenAPI
