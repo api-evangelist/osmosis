@@ -80,7 +80,7 @@ apis:
   humanURL: https://docs.osmosis.ai
   baseURL: https://api.osmosis.ai
   tags:
-  - Agents
+  - agent
   tags_raw:
   - agent
   properties:
