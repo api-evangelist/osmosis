@@ -1,20 +1,75 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Osmosis Improvement agent knowledge API
+  title: Osmosis Agent Improvement Knowledge API
   description: Improve agentic improvements by learning from past interactions
   version: 1.0.0
 security:
 - ApiKeyAuth: []
 tags:
-- name: knowledge
+- name: Knowledge
   description: Operations for managing the knowledge base
 paths:
   /store_knowledge:
     post:
       tags:
-      - knowledge
+      - Knowledge
       summary: Store Knowledge
-      description: "Store and process agent interaction knowledge asynchronously.\n\nThis endpoint accepts knowledge about agent interactions and queues it for background\nprocessing. The processing pipeline analyzes the interaction, generates insights,\nand stores them for future use.\n\nArgs:\n    knowledge: Details about the agent interaction including:\n        - tenant_id: Tenant identifier for organization/project\n        - query: The user's original query/request\n        - turns: List of interaction turns between user and agent\n        - success: Whether the interaction achieved the user's goal\n        - agent_type: Type of agent that handled the interaction\n        - timestamp: When the interaction occurred (ISO format)\n    background_tasks: FastAPI background tasks handler for async processing\n\nReturns:\n    Dict containing:\n        - status: \"accepted\"\n        - message: Processing acknowledgement\n        - tenant_id: The tenant ID from the request\n\nNotes:\n    - Each turn should capture the key decision points and context\n    - The memory field helps track the agent's understanding\n    - Success should reflect whether the user's goal was achieved\n    - Timestamp should be in ISO 8601 format\n    - Agent type helps categorize different interaction patterns\n\nRaises:\n    HTTPException(500): If there is an error queueing the knowledge"
+      description: 'Store and process agent interaction knowledge asynchronously.
+
+
+        This endpoint accepts knowledge about agent interactions and queues it for background
+
+        processing. The processing pipeline analyzes the interaction, generates insights,
+
+        and stores them for future use.
+
+
+        Args:
+
+        knowledge: Details about the agent interaction including:
+
+        - tenant_id: Tenant identifier for organization/project
+
+        - query: The user''s original query/request
+
+        - turns: List of interaction turns between user and agent
+
+        - success: Whether the interaction achieved the user''s goal
+
+        - agent_type: Type of agent that handled the interaction
+
+        - timestamp: When the interaction occurred (ISO format)
+
+        background_tasks: FastAPI background tasks handler for async processing
+
+
+        Returns:
+
+        Dict containing:
+
+        - status: "accepted"
+
+        - message: Processing acknowledgement
+
+        - tenant_id: The tenant ID from the request
+
+
+        Notes:
+
+        - Each turn should capture the key decision points and context
+
+        - The memory field helps track the agent''s understanding
+
+        - Success should reflect whether the user''s goal was achieved
+
+        - Timestamp should be in ISO 8601 format
+
+        - Agent type helps categorize different interaction patterns
+
+
+        Raises:
+
+        HTTPException(500): If there is an error queueing the knowledge'
       operationId: store_knowledge_store_knowledge_post
       requestBody:
         content:
@@ -68,9 +123,43 @@ paths:
   /delete_by_intent:
     post:
       tags:
-      - knowledge
+      - Knowledge
       summary: Delete By Intent
-      description: "Delete documents from the knowledge store based on intent similarity.\n\nThis endpoint:\n1. Takes an intent and tenant_id\n2. Searches for documents with similar intent using the default similarity threshold\n3. Deletes matching documents\n4. Returns the count of deleted documents\n\nArgs:\n    tenant_id: The tenant identifier\n    intent: The intent to match against\n    similarity_threshold: Optional threshold for similarity matching\n\nReturns:\n    Dict containing:\n        - deleted_count: Number of documents deleted\n        - status: Operation status message\n\nRaises:\n    HTTPException: If deletion fails"
+      description: 'Delete documents from the knowledge store based on intent similarity.
+
+
+        This endpoint:
+
+        1. Takes an intent and tenant_id
+
+        2. Searches for documents with similar intent using the default similarity threshold
+
+        3. Deletes matching documents
+
+        4. Returns the count of deleted documents
+
+
+        Args:
+
+        tenant_id: The tenant identifier
+
+        intent: The intent to match against
+
+        similarity_threshold: Optional threshold for similarity matching
+
+
+        Returns:
+
+        Dict containing:
+
+        - deleted_count: Number of documents deleted
+
+        - status: Operation status message
+
+
+        Raises:
+
+        HTTPException: If deletion fails'
       operationId: delete_by_intent_delete_by_intent_post
       parameters:
       - name: tenant_id
@@ -113,9 +202,14 @@ paths:
   /knowledge_status/{job_id}:
     get:
       tags:
-      - knowledge
+      - Knowledge
       summary: Knowledge Status
-      description: "Get the status of a knowledge upload job.\n\nArgs:\n    job_id: The job ID for the knowledge upload, passed as path parameter"
+      description: 'Get the status of a knowledge upload job.
+
+
+        Args:
+
+        job_id: The job ID for the knowledge upload, passed as path parameter'
       operationId: knowledge_status_knowledge_status__job_id__get
       parameters:
       - name: job_id
@@ -140,48 +234,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    AgentTurn:
-      properties:
-        turn:
-          type: integer
-          title: Turn
-          description: The turn number in the interaction
-        inputs:
-          type: string
-          title: Inputs
-          description: The flattened input the agent sees
-        decision:
-          type: string
-          title: Decision
-          description: The output/action of the agent
-        memory:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Memory
-          description: What the agent remembers from this turn
-        result:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Result
-          description: The result of the action
-      type: object
-      required:
-      - turn
-      - inputs
-      - decision
-      title: AgentTurn
-      description: Represents a single turn in an agent's interaction.
     AgentKnowledgeUpload:
       properties:
         tenant_id:
@@ -226,6 +278,39 @@ components:
       - turns
       title: AgentKnowledgeUpload
       description: Represents uploaded knowledge about agent interactions.
+    AgentTurn:
+      properties:
+        turn:
+          type: integer
+          title: Turn
+          description: The turn number in the interaction
+        inputs:
+          type: string
+          title: Inputs
+          description: The flattened input the agent sees
+        decision:
+          type: string
+          title: Decision
+          description: The output/action of the agent
+        memory:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Memory
+          description: What the agent remembers from this turn
+        result:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Result
+          description: The result of the action
+      type: object
+      required:
+      - turn
+      - inputs
+      - decision
+      title: AgentTurn
+      description: Represents a single turn in an agent's interaction.
     ValidationError:
       properties:
         loc:
@@ -247,6 +332,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

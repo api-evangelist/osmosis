@@ -1,18 +1,26 @@
 {
   "provider": "osmosis",
   "sources": [
-    "osmosis-agent-api-openapi.yml",
-    "osmosis-knowledge-api-openapi.yml",
-    "osmosis-osmosis-agent-improvement-api-api-openapi.yml"
+    "_original/osmosis-agent-improvement-openapi.json"
   ],
   "outputs": [
+    "osmosis-osmosis-agent-improvement-api-api-openapi.yml",
     "osmosis-agent-api-openapi.yml",
-    "osmosis-knowledge-api-openapi.yml",
-    "osmosis-osmosis-agent-improvement-api-api-openapi.yml"
+    "osmosis-knowledge-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "osmosis-agent-improvement-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "osmosis-agent-improvement-openapi.json: tagged paths GET / -> Osmosis Agent Improvement API",
+    "osmosis-agent-improvement-openapi.json: declared missing tag: Osmosis Agent Improvement API",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "osmosis-agent-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "osmosis-knowledge-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "osmosis-osmosis-agent-improvement-api-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,20 +1,46 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Osmosis Improvement agent API
+  title: Osmosis Improvement Agent API
   description: Improve agentic improvements by learning from past interactions
   version: 1.0.0
 security:
 - ApiKeyAuth: []
 tags:
-- name: agent
+- name: Agent
   description: Operations for enhancing agent interactions and decisions
 paths:
   /enhance_task:
     post:
       tags:
-      - agent
+      - Agent
       summary: Process Agent Input
-      description: "Process agent input, enhance it with relevant past knowledge.\n\nThis endpoint:\n1. Processes the agent's input\n2. Searches for relevant past knowledge\n3. Enhances the response with recommendations\n\nArgs:\n    input_data: Agent's input and context with tenant ID (use your API key as the tenant_id)\n    agent_type: Optional agent type override\n\nReturns:\n    Enhanced response with recommendations\n\nRaises:\n    HTTPException: If processing fails"
+      description: 'Process agent input, enhance it with relevant past knowledge.
+
+
+        This endpoint:
+
+        1. Processes the agent''s input
+
+        2. Searches for relevant past knowledge
+
+        3. Enhances the response with recommendations
+
+
+        Args:
+
+        input_data: Agent''s input and context with tenant ID (use your API key as the tenant_id)
+
+        agent_type: Optional agent type override
+
+
+        Returns:
+
+        Enhanced response with recommendations
+
+
+        Raises:
+
+        HTTPException: If processing fails'
       operationId: process_agent_input_enhance_task_post
       requestBody:
         content:
@@ -45,15 +71,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     EnhancedResponse:
       properties:
         response:
@@ -70,6 +87,27 @@ components:
       - response
       title: EnhancedResponse
       description: Response enhanced with relevant past knowledge.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AgentInput:
       properties:
         tenant_id:
@@ -98,27 +136,15 @@ components:
       - input_text
       title: AgentInput
       description: Represents an input from an agent that needs to be processed.
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: HTTPValidationError
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
