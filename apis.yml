@@ -59,7 +59,7 @@ tags:
 - Post-Training
 - Model Training
 - Agents
-- Machine-Learning
+- Machine Learning
 - Developer Tools
 tags_raw:
 - Company
@@ -71,9 +71,10 @@ tags_raw:
 - Agents
 - Machine Learning
 - Developer Tools
+- Machine-Learning
 apis:
 - aid: osmosis:osmosis-agent-api
-  name: Osmosis agent API
+  name: Osmosis Agent API
   description: Operations for enhancing agent interactions and decisions
   humanURL: https://docs.osmosis.ai
   baseURL: https://api.osmosis.ai
@@ -85,7 +86,7 @@ apis:
   - type: OpenAPI
     url: openapi/osmosis-agent-api-openapi.yml
 - aid: osmosis:osmosis-knowledge-api
-  name: Osmosis knowledge API
+  name: Osmosis Knowledge API
   description: Operations for managing the knowledge base
   humanURL: https://docs.osmosis.ai
   baseURL: https://api.osmosis.ai
