@@ -71,22 +71,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    EnhancedResponse:
+    ValidationError:
       properties:
-        response:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Response
-          description: The processed response
-        metadata:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Metadata
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - response
-      title: EnhancedResponse
-      description: Response enhanced with relevant past knowledge.
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AgentInput:
       properties:
         tenant_id:
@@ -124,27 +129,22 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ValidationError:
+    EnhancedResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        response:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Response
+          description: The processed response
+        metadata:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Metadata
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - response
+      title: EnhancedResponse
+      description: Response enhanced with relevant past knowledge.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
