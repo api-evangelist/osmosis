@@ -1,0 +1,26 @@
+slug: osmosis
+provider: Osmosis
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Agent
+  spec_file: osmosis-agent-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /enhance_task  Process Agent Input ... 'Improve agentic improvements by learning from
+    past interactions'
+  reason: Osmosis is an LLM post-training/RL platform; the Agent tag enhances agent task inputs by learning
+    from past interactions, which is AI/ML model lifecycle work (Artificial Intelligence Management).
+    Moderate confidence given the thin single-operation surface.
