@@ -234,50 +234,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AgentKnowledgeUpload:
-      properties:
-        tenant_id:
-          type: string
-          title: Tenant Id
-          description: Unique identifier for the tenant/user
-        query:
-          type: string
-          title: Query
-          description: The original user query or instruction
-        turns:
-          items:
-            $ref: '#/components/schemas/AgentTurn'
-          type: array
-          title: Turns
-          description: The sequence of agent turns
-        success:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Success
-          description: Whether the agent completed its task successfully
-        agent_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Agent Type
-          description: Type of agent (e.g., 'browser', 'voice')
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        metadata:
-          anyOf:
-          - type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      required:
-      - tenant_id
-      - query
-      - turns
-      title: AgentKnowledgeUpload
-      description: Represents uploaded knowledge about agent interactions.
     HTTPValidationError:
       properties:
         detail:
@@ -341,6 +297,50 @@ components:
       - decision
       title: AgentTurn
       description: Represents a single turn in an agent's interaction.
+    AgentKnowledgeUpload:
+      properties:
+        tenant_id:
+          type: string
+          title: Tenant Id
+          description: Unique identifier for the tenant/user
+        query:
+          type: string
+          title: Query
+          description: The original user query or instruction
+        turns:
+          items:
+            $ref: '#/components/schemas/AgentTurn'
+          type: array
+          title: Turns
+          description: The sequence of agent turns
+        success:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Success
+          description: Whether the agent completed its task successfully
+        agent_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Type
+          description: Type of agent (e.g., 'browser', 'voice')
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        metadata:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - tenant_id
+      - query
+      - turns
+      title: AgentKnowledgeUpload
+      description: Represents uploaded knowledge about agent interactions.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
