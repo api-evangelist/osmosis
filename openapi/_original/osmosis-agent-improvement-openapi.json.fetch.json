@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.osmosis.ai/openapi.json",
+ "requested_url": "https://docs.osmosis.ai/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 24450,
+ "sha256": "1776d48631c478e7f0f1ee2ee936d55708ab13628c8f5c78b644629d18f9975f",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
